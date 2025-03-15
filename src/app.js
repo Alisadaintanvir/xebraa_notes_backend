@@ -12,6 +12,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { createServer } = require("http");
 const { notFoundHandler, errorHandler } = require("@/helpers/errorHandler");
+const appRouter = require("@/routers/index");
 
 const app = express();
 
@@ -28,6 +29,9 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+// app router
+app.use(appRouter);
 
 // 404 not found handler
 app.use(notFoundHandler);
