@@ -1,0 +1,25 @@
+{
+  "name": "real_time_note_xebraa",
+  "version": "1.0.0",
+  "description": "This is a real time note app backend ",
+  "main": "src/app.js",
+  "_moduleAliases": {
+    "@": "./src"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ali Sadain Tanvir",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "http": "^0.0.1-security",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "mongoose": "^8.12.1"
+  }
+}
