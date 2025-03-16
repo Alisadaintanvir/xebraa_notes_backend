@@ -6,4 +6,4 @@ const withErrorHandling = (fn) => async (req, res, next) => {
   });
 };
 
-module.exports = { withErrorHandling };
+module.exports = withErrorHandling;

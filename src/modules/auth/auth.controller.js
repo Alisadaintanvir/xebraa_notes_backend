@@ -49,7 +49,7 @@ const postLogin = async (req, res, next) => {
   }
 
   const tokenPayload = {
-    id: user._id,
+    _id: user._id,
     email: user.email,
     name: user.name,
   };
@@ -74,13 +74,36 @@ const postLogin = async (req, res, next) => {
   res.status(200).json({ accessToken, refreshToken });
 };
 
+// refresh token
+const getRefreshToken = async (req, res, next) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken)
+    return res.status(403).json({ message: "Refresh token required" });
+
+  const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+  const user = await User.findById(decoded.id);
+  if (!user || user.refreshToken !== refreshToken) {
+    return res.status(401).send({ error: "Invalid refresh token" });
+  }
+
+  const accessToken = generateAccessToken({
+    id: user._id,
+    email: user.email,
+    name: user.name,
+  });
+
+  res.status(200).json({ accessToken });
+};
+
 // logout user
 const postLogout = async (req, res, next) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(400).json({ message: "Refresh token is required" });
+  }
   // update refresh token in database
-  await User.findOneAndUpdate(
-    { refreshToken: req.cookies.refreshToken },
-    { refreshToken: null }
-  );
+  await User.findOneAndUpdate({ refreshToken }, { refreshToken: null });
 
   // clear refresh token cookie
   res.clearCookie("refreshToken");
@@ -88,4 +111,4 @@ const postLogout = async (req, res, next) => {
   res.status(200).json({ message: "User logged out successfully!" });
 };
 
-module.exports = { postRegister, postLogin, postLogout };
+module.exports = { postRegister, postLogin, getRefreshToken, postLogout };

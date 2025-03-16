@@ -1,8 +1,13 @@
 const { Router } = require("express");
-const { postRegister, postLogin, postLogout } = require("./auth.controller");
+const {
+  postRegister,
+  postLogin,
+  postLogout,
+  getRefreshToken,
+} = require("./auth.controller");
 const { validationHandler } = require("@/helpers/errorHandler");
 const { registerValidator, loginValidator } = require("./auth.validator");
-const { withErrorHandling } = require("../../utility/withErrorHandling");
+const withErrorHandling = require("@/utility/withErrorHandling");
 
 const router = Router();
 
@@ -21,6 +26,9 @@ router.post(
   validationHandler,
   withErrorHandling(postLogin)
 );
+
+// Refresh Token
+router.get("/refresh-token", withErrorHandling(getRefreshToken));
 
 // Logout User
 router.post("/logout", withErrorHandling(postLogout));

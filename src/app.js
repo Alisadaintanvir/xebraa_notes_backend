@@ -11,12 +11,14 @@ if (process.env.NODE_ENV === "development") {
 const express = require("express");
 const mongoose = require("mongoose");
 const { createServer } = require("http");
+const cookieParser = require("cookie-parser");
 const { notFoundHandler, errorHandler } = require("@/helpers/errorHandler");
 const appRouter = require("@/routers/index");
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 const server = createServer(app);
 
