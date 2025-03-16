@@ -12,6 +12,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { createServer } = require("http");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
+
+// internal Import
 const { notFoundHandler, errorHandler } = require("@/helpers/errorHandler");
 const appRouter = require("@/routers/index");
 
@@ -19,6 +22,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+
+// logger middleware to log request
+app.use(morgan("dev"));
 
 const server = createServer(app);
 
