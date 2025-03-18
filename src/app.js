@@ -1,12 +1,10 @@
 require("module-alias/register");
 require("dotenv").config();
-const path = require("path");
-const moduleAlias = require("module-alias");
 
 if (process.env.NODE_ENV === "development") {
-  moduleAlias.addAlias("@", path.join(__dirname, "../src"));
+  require("module-alias").addAlias("@", __dirname + "/../src");
 } else {
-  moduleAlias.addAlias("@", path.join(__dirname)); // Usually points to dist
+  require("module-alias").addAlias("@", __dirname);
 }
 
 // all imports should be done after module-alias
@@ -18,7 +16,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 // internal Import
-const { notFoundHandler, errorHandler } = require("./t/helpers/errorHandler");
+const { notFoundHandler, errorHandler } = require("./helpers/errorHandle");
 const appRouter = require("@/routers/index");
 
 const app = express();
