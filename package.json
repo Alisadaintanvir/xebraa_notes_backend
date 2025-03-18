@@ -7,8 +7,8 @@
     "@": "./src"
   },
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
-    "dev": "NODE_ENV=development node app.js",
+    "start": "node src/app.js",
+    "dev": "cross-env NODE_ENV=development node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ali Sadain Tanvir",
@@ -26,5 +26,8 @@
     "module-alias": "^2.2.3",
     "mongoose": "^8.12.1",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
