@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 const { createServer } = require("http");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
+const cors = require("cors");
 
 // internal Import
 const { notFoundHandler, errorHandler } = require("@/helpers/errorHandler");
@@ -22,6 +23,32 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+// app.use(
+//   cors({
+//     origin: "http://localhost:8000", // Your frontend URL
+//     credentials: true, // Allow cookies (refresh token)
+//   })
+// );
+
+var whitelist = process.env.ALLOWED_ORIGIN
+  ? [process.env.ALLOWED_ORIGIN]
+  : ["http://localhost:8000"];
+
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (
+      process.env.NODE_ENV?.toString() === "development" ||
+      whitelist.indexOf(origin) !== -1
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 // logger middleware to log request
 app.use(morgan("dev"));

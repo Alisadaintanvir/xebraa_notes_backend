@@ -3,7 +3,9 @@ const createHttpError = require("http-errors");
 
 // get all notes
 const getNotes = async (req, res, next) => {
-  const notes = await Note.find({}).populate("author", "name");
+  const notes = await Note.find({})
+    .populate("author", "name")
+    .sort({ createdAt: -1 });
   res.status(200).json({ message: "Notes fetched successfully!", data: notes });
 };
 
@@ -21,19 +23,25 @@ const postCreateNote = async (req, res, next) => {
   if (!note)
     return next(createHttpError(400, "Error creating note, try again!"));
 
-  res.status(201).json({ message: `Note created successfully!` });
+  res.status(201).json({ message: `Note created successfully!`, data: note });
 };
 
 // update note
 const patchUpdateNote = async (req, res, next) => {
   const { title, content } = req.body;
-  const note = await Note.findByIdAndUpdate(req.params.id, { title, content });
+  const note = await Note.findByIdAndUpdate(
+    req.params.id,
+    { title, content },
+    { new: true }
+  );
   if (!note)
     return next(createHttpError(400, "Error updating note, try again!"));
 
+  console.log(note);
+
   res
     .status(200)
-    .json({ message: `Note Id: ${req.params.id} updated successfully!` });
+    .json({ message: `Note Id: ${req.params.id} updated successfully!`, note });
 };
 
 // delete note

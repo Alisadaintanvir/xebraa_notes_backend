@@ -71,7 +71,7 @@ const postLogin = async (req, res, next) => {
     sameSite: "strict",
   });
 
-  res.status(200).json({ accessToken, refreshToken });
+  res.status(200).json({ user: tokenPayload, accessToken, refreshToken });
 };
 
 // refresh token
@@ -81,18 +81,21 @@ const getRefreshToken = async (req, res, next) => {
     return res.status(403).json({ message: "Refresh token required" });
 
   const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-  const user = await User.findById(decoded.id);
+  const user = await User.findById(decoded._id).select("-password");
   if (!user || user.refreshToken !== refreshToken) {
     return res.status(401).send({ error: "Invalid refresh token" });
   }
 
   const accessToken = generateAccessToken({
-    id: user._id,
+    _id: user._id,
     email: user.email,
     name: user.name,
   });
 
-  res.status(200).json({ accessToken });
+  res.status(200).json({
+    accessToken,
+    user,
+  });
 };
 
 // logout user
@@ -111,4 +114,9 @@ const postLogout = async (req, res, next) => {
   res.status(200).json({ message: "User logged out successfully!" });
 };
 
-module.exports = { postRegister, postLogin, getRefreshToken, postLogout };
+module.exports = {
+  postRegister,
+  postLogin,
+  getRefreshToken,
+  postLogout,
+};
