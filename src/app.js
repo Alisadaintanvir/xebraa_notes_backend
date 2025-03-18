@@ -32,8 +32,6 @@ app.use(cookieParser());
 
 var whitelist = process.env.ALLOWED_ORIGIN ? [process.env.ALLOWED_ORIGIN] : [];
 
-console.log(process.env.NODE_ENV);
-
 var corsOptions = {
   origin: function (origin, callback) {
     if (
@@ -52,6 +50,11 @@ app.use(cors(corsOptions));
 
 // logger middleware to log request
 app.use(morgan("dev"));
+
+// Root route
+app.get("/", (req, res) => {
+  res.send("Welcome to the backend server!");
+});
 
 const server = createServer(app);
 
