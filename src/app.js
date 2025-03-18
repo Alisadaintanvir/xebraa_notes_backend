@@ -15,43 +15,39 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(
-//   cors({
-//     origin: "http://localhost:8000", // Your frontend URL
-//     credentials: true, // Allow cookies (refresh token)
-//   })
-// );
 
-const whitelist = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",")
-  : [];
+// const whitelist = process.env.ALLOWED_ORIGINS
+//   ? process.env.ALLOWED_ORIGINS.split(",")
+//   : [];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log(
-      "Request Origin:",
-      origin || "undefined (probably same-origin or server-side)"
-    );
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     console.log(
+//       "Request Origin:",
+//       origin || "undefined (probably same-origin or server-side)"
+//     );
 
-    if (
-      !origin ||
-      process.env.NODE_ENV === "development" ||
-      whitelist.includes(origin)
-    ) {
-      callback(null, true);
-    } else {
-      console.log("Blocked by CORS:", origin);
-      callback(null, false);
-    }
-  },
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedOrigins: ["http://localhost:5173"],
-};
+//     if (
+//       !origin ||
+//       process.env.NODE_ENV === "development" ||
+//       whitelist.includes(origin)
+//     ) {
+//       callback(null, true);
+//     } else {
+//       console.log("Blocked by CORS:", origin);
+//       callback(null, false);
+//     }
+//   },
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // explicitly handle preflight requests
+// app.use(cors(corsOptions));
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // logger middleware to log request
 app.use(morgan("dev"));
