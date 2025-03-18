@@ -1,4 +1,4 @@
-const Note = require("@/schemas/note.schema");
+const Note = require("../../schemas/note.schema");
 const createHttpError = require("http-errors");
 
 // get all notes

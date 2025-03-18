@@ -6,10 +6,10 @@ const {
   getRefreshToken,
   getVerifyToken,
 } = require("./auth.controller");
-const { validationHandler } = require("@/helpers/errorHandler");
+const { validationHandler } = require("../../helpers/errorHandler");
 const { registerValidator, loginValidator } = require("./auth.validator");
-const withErrorHandling = require("@/utility/withErrorHandling");
-const { authenticateToken } = require("@/middlewares/auth.middleware");
+const withErrorHandling = require("../../utility/withErrorHandling");
+const { authenticateToken } = require("../../middlewares/auth.middleware");
 
 const router = Router();
 

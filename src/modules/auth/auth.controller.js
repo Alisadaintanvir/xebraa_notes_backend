@@ -2,12 +2,12 @@ const bycrpt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const createHttpError = require("http-errors");
 
-const User = require("@/schemas/user.schema");
-const { BCRYPT_SALT_ROUNDS } = require("@/constants/value.constant");
+const User = require("../../schemas/user.schema");
+const { BCRYPT_SALT_ROUNDS } = require("../../constants/value.constant");
 const {
   generateAccessToken,
   generateRefreshToken,
-} = require("@/services/token.service");
+} = require("../../services/token.service");
 
 // register
 const postRegister = async (req, res, next) => {

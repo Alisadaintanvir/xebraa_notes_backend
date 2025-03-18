@@ -1,13 +1,5 @@
-require("module-alias/register");
 require("dotenv").config();
 
-// if (process.env.NODE_ENV === "development") {
-//   require("module-alias").addAlias("@", __dirname + "/../src");
-// } else {
-//   require("module-alias").addAlias("@", __dirname);
-// }
-
-// all imports should be done after module-alias
 const express = require("express");
 const mongoose = require("mongoose");
 const { createServer } = require("http");
@@ -17,7 +9,7 @@ const cors = require("cors");
 
 // internal Import
 const { notFoundHandler, errorHandler } = require("./helpers/errorHandler");
-const appRouter = require("@/routers/index");
+const appRouter = require("./modules/app.router");
 
 const app = express();
 

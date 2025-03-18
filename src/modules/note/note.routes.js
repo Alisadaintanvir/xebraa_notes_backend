@@ -6,10 +6,10 @@ const {
   deleteNote,
   getNoteById,
 } = require("./note.controller");
-const withErrorHandling = require("@/utility/withErrorHandling");
-const { authenticateToken } = require("@/middlewares/auth.middleware");
+const withErrorHandling = require("../../utility/withErrorHandling");
+const { authenticateToken } = require("../../middlewares/auth.middleware");
 const { createNoteValidator } = require("./note.validator");
-const { validationHandler } = require("@/helpers/errorHandler");
+const { validationHandler } = require("../../helpers/errorHandler");
 
 const router = Router();
 
