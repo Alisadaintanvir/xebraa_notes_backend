@@ -26,17 +26,22 @@ const whitelist = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")
   : [];
 
-var corsOptions = {
+const corsOptions = {
   origin: function (origin, callback) {
-    console.log("Request Origin:", origin); // Debug log
+    console.log(
+      "Request Origin:",
+      origin || "undefined (probably same-origin or server-side)"
+    );
+
     if (
-      process.env.NODE_ENV?.toString() === "development" ||
-      whitelist.indexOf(origin) !== -1
+      !origin ||
+      process.env.NODE_ENV === "development" ||
+      whitelist.includes(origin)
     ) {
       callback(null, true);
     } else {
-      console.log("Blocked by CORS:", origin); // Debug log
-      callback(new Error("Not allowed by CORS"));
+      console.log("Blocked by CORS:", origin);
+      callback(null, false);
     }
   },
   credentials: true,
