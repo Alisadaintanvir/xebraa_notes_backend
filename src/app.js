@@ -7,6 +7,8 @@ if (process.env.NODE_ENV === "development") {
   require("module-alias").addAlias("@", __dirname);
 }
 
+console.log(__dirname);
+
 // all imports should be done after module-alias
 const express = require("express");
 const mongoose = require("mongoose");
@@ -16,7 +18,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 // internal Import
-const { notFoundHandler, errorHandler } = require("./helpers/errorHandle");
+const { notFoundHandler, errorHandler } = require("./helpers/errorHandler");
 const appRouter = require("@/routers/index");
 
 const app = express();
