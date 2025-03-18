@@ -45,9 +45,12 @@ const corsOptions = {
     }
   },
   credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 };
 
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // explicitly handle preflight requests
 
 // logger middleware to log request
 app.use(morgan("dev"));
