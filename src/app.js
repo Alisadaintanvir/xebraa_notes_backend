@@ -16,7 +16,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 // internal Import
-const { notFoundHandler, errorHandler } = require("./helpers/errorHandler");
+const { notFoundHandler, errorHandler } = require("./t/helpers/errorHandler");
 const appRouter = require("@/routers/index");
 
 const app = express();
