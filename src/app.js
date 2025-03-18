@@ -30,9 +30,9 @@ app.use(cookieParser());
 //   })
 // );
 
-var whitelist = process.env.ALLOWED_ORIGIN
-  ? [process.env.ALLOWED_ORIGIN]
-  : ["http://localhost:8000"];
+var whitelist = process.env.ALLOWED_ORIGIN ? [process.env.ALLOWED_ORIGIN] : [];
+
+console.log(process.env.NODE_ENV);
 
 var corsOptions = {
   origin: function (origin, callback) {
