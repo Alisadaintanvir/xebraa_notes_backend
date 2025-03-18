@@ -1,13 +1,11 @@
 require("module-alias/register");
 require("dotenv").config();
 
-if (process.env.NODE_ENV === "development") {
-  require("module-alias").addAlias("@", __dirname + "/../src");
-} else {
-  require("module-alias").addAlias("@", __dirname);
-}
-
-console.log(__dirname);
+// if (process.env.NODE_ENV === "development") {
+//   require("module-alias").addAlias("@", __dirname + "/../src");
+// } else {
+//   require("module-alias").addAlias("@", __dirname);
+// }
 
 // all imports should be done after module-alias
 const express = require("express");
