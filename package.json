@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "This is a real time note app backend ",
   "main": "src/app.js",
-  "_moduleAliases": {
-    "@": "src"
-  },
   "scripts": {
     "start": "node src/app.js",
     "dev": "cross-env NODE_ENV=development node src/app.js",
@@ -23,10 +20,8 @@
     "http": "^0.0.1-security",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
-    "module-alias": "^2.2.3",
     "mongoose": "^8.12.1",
-    "morgan": "^1.10.0",
-    "path": "^0.12.7"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"

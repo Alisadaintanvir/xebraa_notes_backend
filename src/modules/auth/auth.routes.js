@@ -6,6 +6,7 @@ const {
   getRefreshToken,
   getVerifyToken,
 } = require("./auth.controller");
+
 const { validationHandler } = require("../../helpers/errorHandler");
 const { registerValidator, loginValidator } = require("./auth.validator");
 const withErrorHandling = require("../../utility/withErrorHandling");

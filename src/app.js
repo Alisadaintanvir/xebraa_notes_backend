@@ -9,55 +9,37 @@ const cors = require("cors");
 
 // internal Import
 const { notFoundHandler, errorHandler } = require("./helpers/errorHandler");
-const appRouter = require("./modules/app.router");
+const appRouter = require("./routers/index");
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
-// const whitelist = process.env.ALLOWED_ORIGINS
-//   ? process.env.ALLOWED_ORIGINS.split(",")
-//   : [];
+var whitelist = process.env.ALLOWED_ORIGIN ? [process.env.ALLOWED_ORIGIN] : [];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (
+      process.env.NODE_ENV?.toString() === "development" ||
+      whitelist.indexOf(origin) !== -1
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
 
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     console.log(
-//       "Request Origin:",
-//       origin || "undefined (probably same-origin or server-side)"
-//     );
-
-//     if (
-//       !origin ||
-//       process.env.NODE_ENV === "development" ||
-//       whitelist.includes(origin)
-//     ) {
-//       callback(null, true);
-//     } else {
-//       console.log("Blocked by CORS:", origin);
-//       callback(null, false);
-//     }
-//   },
-//   credentials: true,
-// };
-
-// app.use(cors(corsOptions));
-
-app.use(
-  cors({
-    origin: "*",
-    credentials: true, //access-control-allow-credentials:true
-    optionSuccessStatus: 200,
-  })
-);
+app.use(cors(corsOptions));
 
 // logger middleware to log request
 app.use(morgan("dev"));
 
 // Root route
-app.get("/", (req, res) => {
-  res.send("Welcome to the backend server!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Welcome to the backend server!");
+// });
 
 const server = createServer(app);
 
