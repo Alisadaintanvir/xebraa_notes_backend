@@ -47,7 +47,7 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use("*", cors(corsOptions));
 
 // logger middleware to log request
 app.use(morgan("dev"));
