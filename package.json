@@ -4,7 +4,7 @@
   "description": "This is a real time note app backend ",
   "main": "src/app.js",
   "_moduleAliases": {
-    "@": "/src"
+    "@": "dist"
   },
   "scripts": {
     "start": "node src/app.js",
