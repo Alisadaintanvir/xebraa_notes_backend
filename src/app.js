@@ -1,10 +1,12 @@
 require("module-alias/register");
 require("dotenv").config();
+const path = require("path");
+const moduleAlias = require("module-alias");
 
 if (process.env.NODE_ENV === "development") {
-  require("module-alias").addAlias("@", __dirname + "/../src");
+  moduleAlias.addAlias("@", path.join(__dirname, "../src"));
 } else {
-  require("module-alias").addAlias("@", __dirname);
+  moduleAlias.addAlias("@", path.join(__dirname)); // Usually points to dist
 }
 
 // all imports should be done after module-alias
