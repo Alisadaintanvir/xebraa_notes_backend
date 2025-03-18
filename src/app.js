@@ -22,16 +22,20 @@ app.use(cookieParser());
 //   })
 // );
 
-var whitelist = process.env.ALLOWED_ORIGIN ? [process.env.ALLOWED_ORIGIN] : [];
+const whitelist = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",")
+  : [];
 
 var corsOptions = {
   origin: function (origin, callback) {
+    console.log("Request Origin:", origin); // Debug log
     if (
       process.env.NODE_ENV?.toString() === "development" ||
       whitelist.indexOf(origin) !== -1
     ) {
       callback(null, true);
     } else {
+      console.log("Blocked by CORS:", origin); // Debug log
       callback(new Error("Not allowed by CORS"));
     }
   },
