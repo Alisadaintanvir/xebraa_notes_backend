@@ -1,7 +1,3 @@
-Here’s the updated **README.md** with a note about Docker deployment added under the **Setup and Installation** section:
-
----
-
 # Xebraa Notes - A Real-Time Collaborative Note App Backend
 
 This is the backend for a real-time note-taking application built with **Node.js**, **Express**, **MongoDB**, and **Socket.IO**. It provides APIs for user authentication, note management, and real-time collaboration.
