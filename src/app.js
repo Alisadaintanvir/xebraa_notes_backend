@@ -10,6 +10,7 @@ const cors = require("cors");
 // internal Import
 const { notFoundHandler, errorHandler } = require("./helpers/errorHandler");
 const appRouter = require("./routers/index");
+const { initSocket } = require("./utility/socketHandler");
 
 const app = express();
 
@@ -36,12 +37,10 @@ app.use(cors(corsOptions));
 // logger middleware to log request
 app.use(morgan("dev"));
 
-// Root route
-// app.get("/", (req, res) => {
-//   res.send("Welcome to the backend server!");
-// });
-
 const server = createServer(app);
+
+// Initialize socket
+initSocket(server);
 
 // database connection
 mongoose
