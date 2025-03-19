@@ -43,6 +43,10 @@ app.use(
 // logger middleware to log request
 app.use(morgan("dev"));
 
+app.get("/", (req, res) => {
+  res.send("Welcome to Note App");
+});
+
 const server = createServer(app);
 
 // Initialize socket
