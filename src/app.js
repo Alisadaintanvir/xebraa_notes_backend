@@ -36,7 +36,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://xebraa-notes-frontend.vercel.app",
   })
 );
 
