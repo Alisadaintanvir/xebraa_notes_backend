@@ -17,7 +17,9 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-var whitelist = process.env.ALLOWED_ORIGIN ? [process.env.ALLOWED_ORIGIN] : [];
+var whitelist = process.env.ALLOWED_ORIGIN
+  ? process.env.ALLOWED_ORIGIN.split(",")
+  : [];
 var corsOptions = {
   origin: function (origin, callback) {
     if (
