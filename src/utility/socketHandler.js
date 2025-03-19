@@ -1,25 +1,9 @@
 const Note = require("../schemas/note.schema");
 const { Server } = require("socket.io");
+const corsOptions = require("./corsConfig");
 
 let io;
 const usersInRooms = new Map();
-
-var whitelist = process.env.ALLOWED_ORIGIN
-  ? process.env.ALLOWED_ORIGIN.split(",")
-  : [];
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (
-      process.env.NODE_ENV?.toString() === "development" ||
-      whitelist.indexOf(origin) !== -1
-    ) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
 
 const initSocket = (server) => {
   io = new Server(server, {
