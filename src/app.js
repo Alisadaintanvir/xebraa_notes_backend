@@ -17,28 +17,28 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-// var whitelist = process.env.ALLOWED_ORIGIN ? [process.env.ALLOWED_ORIGIN] : [];
-// var corsOptions = {
-//   origin: function (origin, callback) {
-//     if (
-//       process.env.NODE_ENV?.toString() === "development" ||
-//       whitelist.indexOf(origin) !== -1
-//     ) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true,
-// };
+var whitelist = process.env.ALLOWED_ORIGIN ? [process.env.ALLOWED_ORIGIN] : [];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (
+      process.env.NODE_ENV?.toString() === "development" ||
+      whitelist.indexOf(origin) !== -1
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
-app.use(
-  cors({
-    origin: "https://xebraa-notes-frontend.vercel.app",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "*",
+//   })
+// );
 
 // logger middleware to log request
 app.use(morgan("dev"));
