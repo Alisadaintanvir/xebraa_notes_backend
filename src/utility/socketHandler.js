@@ -50,9 +50,23 @@ const initSocket = (server) => {
       console.log(`User ${socket.id} left note room ${noteId}`);
     });
 
-    socket.on("edit-note", (noteId, noteData) => {
-      // Broadcast to all others in the same room
-      socket.to(noteId).emit("note-updated", { noteId, noteData });
+    socket.on("edit-note", async (noteId, noteData) => {
+      try {
+        // Update the note in the database
+        const note = await Note.findByIdAndUpdate(noteId, noteData, {
+          new: true,
+        });
+
+        // Broadcast the updated note to all users in the room
+        socket.to(noteId).emit("note-updated", {
+          noteId,
+          noteData: note, // send the updated note data
+        });
+
+        console.log(`Note ${noteId} updated by ${socket.id}`);
+      } catch (error) {
+        console.error(`Error updating note ${noteId}:`, error);
+      }
     });
 
     socket.on("disconnect", () => {
